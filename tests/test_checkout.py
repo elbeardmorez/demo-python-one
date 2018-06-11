@@ -42,3 +42,9 @@ class TestCheckout(unittest.TestCase):
     def test_checkout_bogof_first3(self):
         self.assertEqual(checkout("ABCDEABCDE"), 280)
 
+    def test_checkout_2f(self):
+        self.assertEqual(checkout("FF"), 20)
+
+    def test_checkout_offer_2f(self):
+        self.assertEqual(checkout("FFF"), 20)
+
