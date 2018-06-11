@@ -4,7 +4,7 @@ import re
 debug = 0
 
 def isdirty(s):
-   return True if re.search("[^A-F]", s) else False
+   return True if re.search("[^A-Z]", s) else False
 
 # noinspection PyUnusedLocal
 # skus = unicode string
@@ -14,9 +14,52 @@ def checkout(skus):
   if isdirty(skus):
       return -1
 
-  freebies = { 'E': [(2, 80, 'B')]}
-  offers = { 'A': [(5, 200), (3, 130)], 'B': [(2, 45)], 'F': [(3, 20)]}
-  costs = { 'A': 50, 'B': 30, 'C': 20, 'D': 15, 'E': 40, 'F': 10 }
+  #TODO: external flat file with simple format for update!
+  freebies = {
+      'E': [(2, 80, 'B')],
+      'N': [(3, 120, 'M')],
+      'R': [(3, 150, 'Q')]
+  }
+  #TODO: external flat file with simple format for update!
+  offers = {
+      'A': [(5, 200), (3, 130)],
+      'B': [(2, 45)],
+      'F': [(3, 20)],
+      'H': [(10, 80), (5, 45)],
+      'K': [(2, 150)],
+      'P': [(5, 200)],
+      'Q': [(3, 80)],
+      'U': [(4, 120)]
+  }
+  #TODO: external flat file with simple format for update!
+  costs = {
+     'A': 50,
+     'B': 30,
+     'C': 20,
+     'D': 15,
+     'E': 40,
+     'F': 10,
+     'G': 20,
+     'H': 10,
+     'I': 35,
+     'J': 60,
+     'K': 80,
+     'L': 90,
+     'M': 15,
+     'N': 40,
+     'O': 10,
+     'P': 50,
+     'Q': 30,
+     'R': 50,
+     'S': 30,
+     'T': 20,
+     'U': 40,
+     'V': 50,
+     'W': 20,
+     'X': 90,
+     'Y': 10,
+     'Z': 50
+  }
   a_skus = sorted(list(skus))
 
   # group and count

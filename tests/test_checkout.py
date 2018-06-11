@@ -22,7 +22,7 @@ class TestCheckout(unittest.TestCase):
         self.assertEqual(checkout("pandas"), -1)
 
     def test_checkout_illegal2(self):
-        self.assertEqual(checkout("AX"), -1)
+        self.assertEqual(checkout("Ax"), -1)
 
     def test_checkout_new_product(self):
         self.assertEqual(checkout("EE"), 80)
@@ -47,4 +47,21 @@ class TestCheckout(unittest.TestCase):
 
     def test_checkout_offer_2f(self):
         self.assertEqual(checkout("FFF"), 20)
+
+    def test_checkout_offers_free_p4(self):
+        self.assertEqual(checkout(
+            "EERRRNNNBMQ"),
+             80 + 120 + 150)
+
+    def test_checkout_offers_value_p4(self):
+        self.assertEqual(checkout(
+            "AAAAAAAABBFFFHHHHHHHHHHHHHHHKKPPPPPQQQUUUU"),
+            200 + 130 + 45 + 20 + 80 + 45 + 150 + 200 + 80 + 120)
+
+    def test_checkout_offers_all_p4(self):
+        self.assertEqual(checkout(
+            "AAAAAAAABBFFFHHHHHHHHHHHHHHHKKPPPPPQQQUUUU" +
+            "EERRRNNNBMQ"),
+            (200 + 130 + 45 + 20 + 80 + 45 + 150 + 200 + 80 + 120) +
+            (80 + 120 + 150))
 
