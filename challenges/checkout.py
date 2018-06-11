@@ -115,3 +115,8 @@ def checkout(skus):
     if debug:
         print("returning %r for %r" % (val, skus))
     return val
+
+
+if __name__ == '__main__':
+    if (len(sys.argv) > 1):
+        checkout(sys.argv[1])
