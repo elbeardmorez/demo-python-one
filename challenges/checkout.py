@@ -1,6 +1,8 @@
 from itertools import groupby
 import re
 
+debug = 0
+
 def isdirty(s):
    return True if re.search("[^A-E]", s) else False
 
@@ -29,14 +31,17 @@ def checkout(skus):
 
   # consider offers first
   for k, count in counts.items():
-#      print("considering %r, count %d" % (k, count))
+      if debug:
+          print("considering %r, count %d" % (k, count))
       if k in offers:
           # hmm, possible multiple offers.. order matters
           # TODO don't rely on order matters! sort by best deal value
           for quantity, cost, bogof in offers[k]:
-#              print("considering offer on %r, %d for %d" % (k, quantity, cost))
+              if debug:
+                  print("considering offer on %r, %d for %d" % (k, quantity, cost))
               while count >= quantity:
-#                  print("offer requirements met, %d for %d on %r" % (quantity, cost, k))
+                  if debug:
+                      print("offer requirements met, %d for %d on %r" % (quantity, cost, k))
                   val += cost
                   count -= quantity
                   counts[k] -= quantity  # outer context
@@ -51,5 +56,6 @@ def checkout(skus):
   for k, count in counts.items():
       val += (count * costs[k])
 
-#  print("returning %r for %r" % (val, skus))
+  if debug:
+      print("returning %r for %r" % (val, skus))
   return val
