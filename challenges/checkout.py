@@ -56,6 +56,15 @@ def checkout(skus):
         'U': [(4, 120)],
         'V': [(3, 130), (2, 90)]
     }
+    # these items are not part of other offers.. [thank you!]
+    group_offers = {
+        'S': [(3, 45, ['S', 'T', 'X', 'Y' , 'Z' ])],
+        'T': [(3, 45, ['S', 'T', 'X', 'Y' , 'Z' ])],
+        'X': [(3, 45, ['S', 'T', 'X', 'Y' , 'Z' ])],
+        'Y': [(3, 45, ['S', 'T', 'X', 'Y' , 'Z' ])],
+        'Z': [(3, 45, ['S', 'T', 'X', 'Y' , 'Z' ])]
+    }
+
     a_skus = sorted(list(skus))
 
     # group and count
@@ -107,6 +116,46 @@ def checkout(skus):
                     val += cost
                     count -= quantity
                     counts[k] -= quantity  # outer context
+
+    # group offers
+    costs_ordered = sorted(costs.items(), key=lambda kvp: kvp[1]);
+
+    def order_by_price(items):
+        return [k for (k, v) in costs_ordered if k in items]
+
+    for k, count in counts.items():
+        if k in group_offers:
+            for min_p, cost, p_set in group_offers[k]:
+                # sort set by price descending to ensure most expensive set
+                # is applied first
+                p_set_ordered = order_by_price(p_set)[::-1]
+
+                gi_purchased_count = 0
+                gi_purchased = []
+                applied = False
+                for i in p_set_ordered:
+                    if debug:
+                        print("consider %r for group offer" % i)
+                    if not i in counts:
+                        continue
+                    count_item = counts[i]
+                    while count_item > 0:
+                        # drain most expensive first
+                        if debug:
+                            print("adding %r for group offer" % i)
+                        gi_purchased_count += 1
+                        gi_purchased.append(i)
+                        count_item -= 1
+                        if gi_purchased_count == min_p:
+                            if debug:
+                                print("applying group offer for %r"
+                                      % gi_purchased)
+                            for i in gi_purchased:
+                                counts[i] -= 1
+                            val += cost
+                            # reset
+                            gi_purchased_count = 0
+                            gi_purchased = []
 
     # single item costs only remain
     for k, count in counts.items():
