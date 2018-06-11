@@ -55,13 +55,13 @@ class TestCheckout(unittest.TestCase):
 
     def test_checkout_offers_value_p4(self):
         self.assertEqual(checkout(
-            "AAAAAAAABBFFFHHHHHHHHHHHHHHHKKPPPPPQQQUUUU"),
-            200 + 130 + 45 + 20 + 80 + 45 + 150 + 200 + 80 + 120)
+            "AAAAAAAABBFFFHHHHHHHHHHHHHHHKKPPPPPQQQUUUUVVVVV"),
+            200 + 130 + 45 + 20 + 80 + 45 + 150 + 200 + 80 + 120 + 130 + 90)
 
     def test_checkout_offers_all_p4(self):
         self.assertEqual(checkout(
-            "AAAAAAAABBFFFHHHHHHHHHHHHHHHKKPPPPPQQQUUUU" +
+            "AAAAAAAABBFFFHHHHHHHHHHHHHHHKKPPPPPQQQUUUUVVVVV" +
             "EERRRNNNBMQ"),
-            (200 + 130 + 45 + 20 + 80 + 45 + 150 + 200 + 80 + 120) +
+            (200 + 130 + 45 + 20 + 80 + 45 + 150 + 200 + 80 + 120 + 130 + 90) +
             (80 + 120 + 150))
 

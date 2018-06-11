@@ -29,7 +29,8 @@ def checkout(skus):
       'K': [(2, 150)],
       'P': [(5, 200)],
       'Q': [(3, 80)],
-      'U': [(4, 120)]
+      'U': [(4, 120)],
+      'V': [(3, 130), (2, 90)]
   }
   #TODO: external flat file with simple format for update!
   costs = {
